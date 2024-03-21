@@ -93,9 +93,27 @@ class Trie:
                 self._insert_compressed(key)
 
 
+    def _generate_suffixes(self, word):
+        suffixes = []
+        for i in range(len(word)):
+            suffixes.append(word[i:])
+        return suffixes
+
+
     def construct_suffix_tree_from_text(self, keys: List[str]) -> None:
-        # TODO
-        pass
+        suffixes = []
+
+        for key in keys:
+            for suffix in self._generate_suffixes(key):
+                suffixes.append(suffix)
+
+        for suffix in suffixes:
+            if not self.is_compressed:    
+                self._insert_uncompressed(suffix)
+            else:
+                self._insert_compressed(suffix)
+
+        return self
     
     def search_and_get_depth(self, key: str) -> int:
         print("searching for key: " + key)
