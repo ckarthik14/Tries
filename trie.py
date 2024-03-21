@@ -19,6 +19,8 @@ class Trie:
                 temp.children[c] = TrieNode(c)
 
             temp = temp.children[c]
+
+        temp.is_end_of_word = True
     
 
     def _find_longest_common_prefix(self, child_value, key_prefix):
@@ -128,7 +130,7 @@ class Trie:
                 depth += 1
                 temp = temp.children[c]
 
-            return depth
+            return depth if temp.is_end_of_word else -1
         else:
             temp = self.root
             depth = 0
